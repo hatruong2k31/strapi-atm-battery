@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stations",
+  "info": {
+    "singularName": "station",
+    "pluralName": "stations",
+    "displayName": "Station",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "street": {
+      "type": "string",
+      "required": false
+    },
+    "trays": {
+      "type": "integer",
+      "min": 0,
+      "required": false
+    },
+    "district": {
+      "type": "string",
+      "required": false
+    },
+    "province": {
+      "type": "string",
+      "required": false
+    },
+    "ward": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

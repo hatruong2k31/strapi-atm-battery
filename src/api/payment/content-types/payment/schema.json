@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payments",
+  "info": {
+    "singularName": "payment",
+    "pluralName": "payments",
+    "displayName": "Payment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "unit_price": {
+      "type": "biginteger"
+    },
+    "total_price": {
+      "type": "biginteger",
+      "required": false
+    },
+    "used_capacity": {
+      "type": "integer"
+    },
+    "battery_id_in": {
+      "type": "integer"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "station_id": {
+      "type": "integer"
+    },
+    "is_delete": {
+      "type": "boolean",
+      "default": false
+    },
+    "battery_id_out": {
+      "type": "integer"
+    }
+  }
+}

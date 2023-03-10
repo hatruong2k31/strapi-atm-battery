@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "batteries",
+  "info": {
+    "singularName": "battery",
+    "pluralName": "batteries",
+    "displayName": "Battery",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "capacity": {
+      "type": "biginteger",
+      "required": true,
+      "min": "0"
+    },
+    "unit_price": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "level": {
+      "type": "integer",
+      "max": 100,
+      "min": 0
+    },
+    "status": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  }
+}

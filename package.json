@@ -1,0 +1,39 @@
+{
+  "name": "learn-strapi",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A Strapi application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "dependencies": {
+    "@strapi/plugin-i18n": "4.4.7",
+    "@strapi/plugin-users-permissions": "4.4.7",
+    "@strapi/provider-email-nodemailer": "^4.6.0",
+    "@strapi/provider-upload-aws-s3": "^4.5.3",
+    "@strapi/strapi": "4.4.7",
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "7.4.6",
+    "firebase-admin": "^11.3.0",
+    "i18n": "^0.15.1",
+    "jsonata": "^1.8.6",
+    "knex-paginate": "^3.0.2",
+    "moment": "^2.29.4",
+    "mysql": "^2.18.1",
+    "yarn": "^1.22.19"
+  },
+  "author": {
+    "name": "HQ Truong"
+  },
+  "strapi": {
+    "uuid": "60c83524-0a5d-4c02-b0ce-e9c10609fc53"
+  },
+  "engines": {
+    "node": ">=14.19.1 <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}
