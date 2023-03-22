@@ -199,6 +199,14 @@ let putUserDetail = async (id, data, ctx) => {
       timeZone: "Asia/Ho_Chi_Minh",
     });
 
+    if (data.role_id) {
+      await knex
+        .withSchema(process.env.DATABASE_SCHEMA)
+        .from("up_users_role_links")
+        .where("user_id", id)
+        .update({ role_id: data.role_id }, ["user_id"]);
+    }
+
     let result = await strapi.query("plugin::users-permissions.user").update({
       data: data,
       where: { id: id },
