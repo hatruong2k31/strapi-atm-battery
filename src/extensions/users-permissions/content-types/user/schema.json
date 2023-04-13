@@ -82,7 +82,8 @@
       "unique": false
     },
     "is_delete": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     }
   }
 }

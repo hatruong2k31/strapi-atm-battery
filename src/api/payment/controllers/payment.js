@@ -65,13 +65,13 @@ let postPaymentDetail = async (ctx) => {
       throw strapi.customLang.__("no_data");
     }
 
-    if (data.user_id == "" || null) {
+    if (!data.user_id) {
       throw strapi.customLang.__("invalid_field", "User");
     }
-    if (data.unit_price == "" || null) {
+    if (!data.unit_price) {
       throw strapi.customLang.__("invalid_field", "Unit Price");
     }
-    if (data.total_price == "" || null) {
+    if (!data.total_price) {
       throw strapi.customLang.__("invalid_field", "Total Price");
     }
 
@@ -104,13 +104,13 @@ let putPaymentDetail = async (ctx) => {
       throw strapi.customLang.__("no_data");
     }
 
-    if (data.user_id == "" || null) {
+    if (!data.user_id) {
       throw strapi.customLang.__("invalid_field", "User");
     }
-    if (data.unit_price == "" || null) {
+    if (!data.unit_price) {
       throw strapi.customLang.__("invalid_field", "Unit Price");
     }
-    if (data.total_price == "" || null) {
+    if (!data.total_price) {
       throw strapi.customLang.__("invalid_field", "Total Price");
     }
 
@@ -146,7 +146,8 @@ let delPaymentDetail = async (ctx) => {
       return ctx.badRequest("Server Error", paymentData.details);
     } else {
       let _re = strapi.config.function.returnResult(paymentData.details);
-      ctx.body = _re;
+
+      ctx.body = { id: id };
     }
   } catch (error) {
     return ctx.badRequest("Server Error", error);

@@ -182,16 +182,18 @@ let putUserDetail = async (id, data, ctx) => {
       throw strapi.customLang.__("duplicate_field", "Phone");
     }
 
-    let checkcardid = await knex
-      .withSchema(process.env.DATABASE_SCHEMA)
-      .from("up_users")
-      .where({ card_id: data.card_id })
-      .andWhereNot({ card_id: null })
-      .andWhereNot({ id: id })
-      .andWhereNot({ is_delete: 1 });
+    if (data.card_id) {
+      let checkcardid = await knex
+        .withSchema(process.env.DATABASE_SCHEMA)
+        .from("up_users")
+        .where({ card_id: data.card_id })
+        .andWhereNot({ card_id: null })
+        .andWhereNot({ id: id })
+        .andWhereNot({ is_delete: 1 });
 
-    if (checkcardid.length > 0) {
-      throw strapi.customLang.__("duplicate_field", "Card Id");
+      if (checkcardid.length > 0) {
+        throw strapi.customLang.__("duplicate_field", "Card Id");
+      }
     }
 
     data.updated_by_id = ctx.state?.user?.id || data?.updated_by_id || null;
@@ -200,6 +202,7 @@ let putUserDetail = async (id, data, ctx) => {
     });
 
     if (data.role_id) {
+      delete data?.role;
       await knex
         .withSchema(process.env.DATABASE_SCHEMA)
         .from("up_users_role_links")
@@ -238,6 +241,7 @@ let deleteUser = async (id, ctx) => {
         {
           is_delete: 1,
           updated_by_id: ctx.state.user.id,
+          updated_at: new Date(),
         },
         ["id"]
       );

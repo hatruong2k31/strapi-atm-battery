@@ -14,27 +14,27 @@
   "attributes": {
     "capacity": {
       "type": "biginteger",
-      "required": true,
-      "min": "0"
+      "required": false
     },
     "unit_price": {
-      "type": "biginteger",
-      "default": "0"
+      "type": "biginteger"
     },
     "name": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "level": {
-      "type": "integer",
-      "max": 100,
-      "min": 0
+      "type": "integer"
     },
     "status": {
       "type": "string"
     },
     "type": {
       "type": "string"
+    },
+    "is_delete": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

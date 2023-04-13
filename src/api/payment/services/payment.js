@@ -138,7 +138,7 @@ let getDetail = async (id, ctx) => {
     let result = await strapi.db.connection
       .withSchema(process.env.DATABASE_SCHEMA)
       .select("*")
-      .from("payments")
+      .from("payment_list")
       .where("id", id);
     return strapi.config.function.resultCreate(200, result[0]);
   } catch (error) {
@@ -180,7 +180,6 @@ let putDetail = async (id, data, ctx) => {
       data: data,
       where: { id: id },
     });
-    console.log("here");
     return strapi.config.function.resultCreate(200, result);
   } catch (error) {
     return strapi.config.function.resultCreate(404, error.message || error);
@@ -207,6 +206,7 @@ let delDetail = async (id, ctx) => {
         {
           is_delete: 1,
           updated_by_id: ctx.state.user.id,
+          updated_at: new Date(),
         },
         ["id"]
       );

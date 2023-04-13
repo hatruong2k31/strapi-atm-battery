@@ -6,31 +6,154 @@
  * @param {*} next
  */
 
-const { createCoreController } = require("@strapi/strapi").factories;
+let getStationList = async (ctx) => {
+  try {
+    let pagination = ctx.request.query.pagination || {
+      page: 1,
+      pageSize: process.env.DATA_PER_PAGE || 20,
+    };
+    let filter = ctx.request.query.filters || [];
+    let sort = ctx.request.query.sort || [];
+    let field = ctx.request.query.fields || ["*"];
 
-module.exports = createCoreController("api::station.station", ({ strapi }) => ({
-  // get List
-  async find(ctx) {
-    const { query } = ctx;
-    const entity = await strapi.service("api::station.station").find(query);
-    const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
-    var _data = sanitizedEntity.results.map((value) => {
-      return value;
-    });
-
-    return { data: _data, pagination: sanitizedEntity.pagination };
-  },
-
-  //get Details
-  async findOne(ctx) {
-    const { id } = ctx.params;
-    const { query } = ctx;
-
-    const entity = await strapi
+    let stationList = await strapi
       .service("api::station.station")
-      .findOne(id, query);
-    const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
-    var _re = this.transformResponse(sanitizedEntity);
-    return { data: sanitizedEntity, meta: _re?.meta };
-  },
-}));
+      .getStationList(pagination, filter, sort, field, ctx);
+    if (stationList.status != 200) {
+      return ctx.badRequest("Server Error", stationList.details);
+    } else {
+      // let _re = strapi.config.function.returnResult(stationList.details);
+
+      ctx.body = stationList.details;
+    }
+  } catch (error) {
+    return ctx.badRequest("Server Error", error);
+  }
+};
+
+let getStationDetail = async (ctx) => {
+  try {
+    let id = ctx.params.id;
+    if (id == null) {
+      throw strapi.customLang.__("invalid_field", "Station Id");
+    }
+
+    let stationData = await strapi
+      .service("api::station.station")
+      .getStationDetail(id, ctx);
+
+    if (stationData.status != 200) {
+      return ctx.badRequest("Server Error", stationData.details);
+    } else {
+      if (stationData.details) {
+        ctx.body = strapi.config.function.returnResult(stationData.details);
+      } else {
+        ctx.body = strapi.config.function.throwError(
+          400,
+          "Station does not exist!",
+          "Server Error"
+        );
+      }
+    }
+  } catch (error) {
+    return ctx.badRequest("Server Error", error);
+  }
+};
+
+let postStationDetail = async (ctx) => {
+  try {
+    let data = ctx.request.body;
+
+    if (data == null) {
+      throw strapi.customLang.__("no_data");
+    }
+
+    if (!data.name) {
+      throw strapi.customLang.__("invalid_field", "Name");
+    }
+    if (!data.trays) {
+      throw strapi.customLang.__("invalid_field", "Trays");
+    }
+
+    let stationData = await strapi
+      .service("api::station.station")
+      .postStationDetail(data, ctx);
+
+    if (stationData.status != 200) {
+      return ctx.badRequest("Server Error", stationData.details);
+    } else {
+      let _re = strapi.config.function.returnResult(stationData.details);
+
+      ctx.body = _re;
+    }
+  } catch (error) {
+    return ctx.badRequest("Server Error", error);
+  }
+};
+
+let putStationDetail = async (ctx) => {
+  try {
+    let id = ctx.params.id;
+    let data = ctx.request.body;
+
+    if (!id) {
+      throw strapi.customLang.__("required_field", "Station Id");
+    }
+
+    if (data == null) {
+      throw strapi.customLang.__("no_data");
+    }
+
+    if (!data.name) {
+      throw strapi.customLang.__("invalid_field", "Name");
+    }
+    if (!data.trays) {
+      throw strapi.customLang.__("invalid_field", "Trays");
+    }
+
+    let stationData = await strapi
+      .service("api::station.station")
+      .putStationDetail(id, data, ctx);
+
+    if (stationData.status != 200) {
+      return ctx.badRequest("Server Error", stationData.details);
+    } else {
+      let _re = strapi.config.function.returnResult(stationData.details);
+
+      ctx.body = _re;
+    }
+  } catch (error) {
+    return ctx.badRequest("Server Error", error);
+  }
+};
+
+let deleteStation = async (ctx) => {
+  try {
+    let id = ctx.params.id;
+    if (!id) {
+      throw strapi.customLang.__("required_field", "Station Id");
+    }
+
+    let stationData = await strapi
+      .service("api::station.station")
+      .deleteStation(id, ctx);
+
+    if (stationData.status != 200) {
+      return ctx.badRequest("Server Error", stationData.details);
+    } else {
+      let _re = strapi.config.function.returnResult(stationData.details);
+
+      ctx.body = { id: id };
+    }
+  } catch (error) {
+    return ctx.badRequest("Server Error", error);
+  }
+};
+
+module.exports = {
+  getStationList,
+  getStationDetail,
+  postStationDetail,
+  putStationDetail,
+  deleteStation,
+};

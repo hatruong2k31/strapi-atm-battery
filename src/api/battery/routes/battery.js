@@ -9,7 +9,7 @@ module.exports = {
     {
       method: "GET",
       path: "/battery/list",
-      handler: "api::battery.battery.find",
+      handler: "battery.getBatteryList",
       config: {
         policies: [],
         middlewares: [],
@@ -18,7 +18,7 @@ module.exports = {
     {
       method: "POST",
       path: "/battery",
-      handler: "api::battery.battery.create",
+      handler: "battery.postBatteryDetail",
       config: {
         policies: [],
         middlewares: [],
@@ -27,7 +27,7 @@ module.exports = {
     {
       method: "DELETE",
       path: "/battery/:id",
-      handler: "api::battery.battery.delete",
+      handler: "battery.deleteBattery",
       config: {
         policies: [],
         middlewares: [],
@@ -36,7 +36,7 @@ module.exports = {
     {
       method: "GET",
       path: "/battery/:id",
-      handler: "api::battery.battery.findOne",
+      handler: "battery.getBatteryDetail",
       config: {
         policies: [],
         middlewares: [],
@@ -45,16 +45,7 @@ module.exports = {
     {
       method: "PUT",
       path: "/battery/:id",
-      handler: "api::battery.battery.update",
-      config: {
-        policies: [],
-        middlewares: [],
-      },
-    },
-    {
-      method: "GET",
-      path: "/battery/:id",
-      handler: "api::battery.battery.findOne",
+      handler: "battery.putBatteryDetail",
       config: {
         policies: [],
         middlewares: [],

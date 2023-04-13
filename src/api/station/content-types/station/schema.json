@@ -14,7 +14,7 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "street": {
       "type": "string",
@@ -36,6 +36,10 @@
     "ward": {
       "type": "string",
       "required": false
+    },
+    "is_delete": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

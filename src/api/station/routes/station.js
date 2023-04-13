@@ -9,7 +9,7 @@ module.exports = {
     {
       method: "GET",
       path: "/station/list",
-      handler: "api::station.station.find",
+      handler: "station.getStationList",
       config: {
         policies: [],
         middlewares: [],
@@ -18,16 +18,16 @@ module.exports = {
     {
       method: "POST",
       path: "/station",
-      handler: "api::station.station.create",
+      handler: "station.postStationDetail",
       config: {
-        policies: ["valid-data"],
+        policies: [],
         middlewares: [],
       },
     },
     {
       method: "DELETE",
       path: "/station/:id",
-      handler: "api::station.station.delete",
+      handler: "station.deleteStation",
       config: {
         policies: [],
         middlewares: [],
@@ -36,7 +36,7 @@ module.exports = {
     {
       method: "GET",
       path: "/station/:id",
-      handler: "api::station.station.findOne",
+      handler: "station.getStationDetail",
       config: {
         policies: [],
         middlewares: [],
@@ -45,9 +45,9 @@ module.exports = {
     {
       method: "PUT",
       path: "/station/:id",
-      handler: "api::station.station.update",
+      handler: "station.putStationDetail",
       config: {
-        policies: ["valid-data"],
+        policies: [],
         middlewares: [],
       },
     },

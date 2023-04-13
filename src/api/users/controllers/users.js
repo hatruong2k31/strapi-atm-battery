@@ -164,9 +164,6 @@ let putUserDetail = async (ctx) => {
     if (data.phone == "" || null) {
       throw strapi.customLang.__("invalid_field", "Phone");
     }
-    if (data.card_id == "" || null) {
-      throw strapi.customLang.__("invalid_field", "Card Id");
-    }
 
     let userData = await strapi
       .service("api::users.users")
@@ -197,7 +194,8 @@ let deleteUser = async (ctx) => {
       return ctx.badRequest("Server Error", userData.details);
     } else {
       let _re = strapi.config.function.returnResult(userData.details);
-      ctx.body = _re;
+
+      ctx.body = { id: id };
     }
   } catch (error) {
     return ctx.badRequest("Server Error", error);
