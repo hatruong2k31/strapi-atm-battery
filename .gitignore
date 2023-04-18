@@ -111,5 +111,5 @@ exports
 *.cache
 dist
 build
-
+config
 structure.ini
