@@ -99,7 +99,7 @@ let postDetail = async (data, ctx) => {
     let create_contact = await knex("b2c.g_contact").insert(data);
 
     if (create_contact) {
-      return strapi.config.function.resultCreate(200, create_contact);
+      return strapi.config.function.resultCreate(200, { id: create_contact });
     } else {
       throw strapi.customLang.__("create_failed", "Contact");
     }
